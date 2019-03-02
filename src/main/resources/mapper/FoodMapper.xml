@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dh.order.dao.FoodMapper">
+    <resultMap id="BaseResultMap" type="com.dh.order.model.Food">
+        <id column="food_id" property="foodId" jdbcType="INTEGER"/>
+        <result column="food_name" property="foodName" jdbcType="VARCHAR"/>
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER"/>
+        <result column="food_url" property="foodUrl" jdbcType="VARCHAR"/>
+        <result column="food_price" property="foodPrice" jdbcType="REAL"/>
+        <result column="food_discount_price" property="foodDiscountPrice" jdbcType="REAL"/>
+        <result column="is_specialty" property="isSpecialty" jdbcType="BIT"/>
+        <result column="food_statue" property="foodStatue" jdbcType="INTEGER"/>
+        <result column="food_count" property="foodCount" jdbcType="INTEGER"/>
+        <!--多对一-->
+        <association property="category" column="category_id"
+                     javaType="com.dh.order.model.Category"
+                     select="com.dh.order.dao.CategoryMapper.selectByPrimaryKey">
+        </association>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.dh.order.model.Food" extends="BaseResultMap">
+        <result column="food_description" property="foodDescription" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        food_id, food_name, merchant_id, food_url, food_price, food_discount_price, is_specialty,
+        food_statue, food_count, category_id
+    </sql>
+    <sql id="Blob_Column_List">
+        food_description
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from food
+        where food_id = #{foodId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from food
+        where food_id = #{foodId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.dh.order.model.Food">
+        insert into food (food_name, merchant_id,
+                          food_url, food_price, food_discount_price,
+                          is_specialty, food_statue, food_count,
+                          category_id, food_description)
+        values (#{foodName,jdbcType=VARCHAR}, #{merchantId,jdbcType=INTEGER},
+            #{foodUrl,jdbcType=VARCHAR}, #{foodPrice,jdbcType=REAL}, #{foodDiscountPrice,jdbcType=REAL},
+            #{isSpecialty,jdbcType=BIT}, #{foodStatue,jdbcType=INTEGER}, #{foodCount,jdbcType=INTEGER},
+            #{category.categoryId,jdbcType=INTEGER}, #{foodDescription,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.dh.order.model.Food">
+        insert into food
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="foodName != null">
+                food_name,
+            </if>
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
+            <if test="foodUrl != null">
+                food_url,
+            </if>
+            <if test="foodPrice != null">
+                food_price,
+            </if>
+            <if test="foodDiscountPrice != null">
+                food_discount_price,
+            </if>
+            <if test="isSpecialty != null">
+                is_specialty,
+            </if>
+            <if test="foodStatue != null">
+                food_statue,
+            </if>
+            <if test="foodCount != null">
+                food_count,
+            </if>
+            <if test="category != null">
+                category_id,
+            </if>
+            <if test="foodDescription != null">
+                food_description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="foodName != null">
+                #{foodName,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null">
+                #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="foodUrl != null">
+                #{foodUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="foodPrice != null">
+                #{foodPrice,jdbcType=REAL},
+            </if>
+            <if test="foodDiscountPrice != null">
+                #{foodDiscountPrice,jdbcType=REAL},
+            </if>
+            <if test="isSpecialty != null">
+                #{isSpecialty,jdbcType=BIT},
+            </if>
+            <if test="foodStatue != null">
+                #{foodStatue,jdbcType=INTEGER},
+            </if>
+            <if test="foodCount != null">
+                #{foodCount,jdbcType=INTEGER},
+            </if>
+            <if test="category != null">
+                #{category.categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="foodDescription != null">
+                #{foodDescription,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dh.order.model.Food">
+        update food
+        <set>
+            <if test="foodName != null">
+                food_name = #{foodName,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="foodUrl != null">
+                food_url = #{foodUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="foodPrice != null">
+                food_price = #{foodPrice,jdbcType=REAL},
+            </if>
+            <if test="foodDiscountPrice != null">
+                food_discount_price = #{foodDiscountPrice,jdbcType=REAL},
+            </if>
+            <if test="isSpecialty != null">
+                is_specialty = #{isSpecialty,jdbcType=BIT},
+            </if>
+            <if test="foodStatue != null">
+                food_statue = #{foodStatue,jdbcType=INTEGER},
+            </if>
+            <if test="foodCount != null">
+                food_count = #{foodCount,jdbcType=INTEGER},
+            </if>
+            <if test="category != null">
+                category_id = #{category.categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="foodDescription != null">
+                food_description = #{foodDescription,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where food_id = #{foodId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAll" resultMap="ResultMapWithBLOBs">
+        select *
+        from food
+    </select>
+
+    <select id="selectByMerchantId" resultMap="ResultMapWithBLOBs"
+            parameterType="java.lang.Integer">
+        select * from food where merchant_id = #{merchantId}
+    </select>
+</mapper>

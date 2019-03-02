@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dh.order.dao.MerchantMapper" >
+  <resultMap id="BaseResultMap" type="com.dh.order.model.Merchant" >
+    <id column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    <result column="merchant_nation" property="merchantNation" jdbcType="VARCHAR" />
+    <result column="merchant_province" property="merchantProvince" jdbcType="VARCHAR" />
+    <result column="merchant_city" property="merchantCity" jdbcType="VARCHAR" />
+    <result column="merchant_address" property="merchantAddress" jdbcType="VARCHAR" />
+    <result column="merchant_phone" property="merchantPhone" jdbcType="CHAR" />
+    <result column="merchant_url" property="merchantUrl" jdbcType="VARCHAR" />
+    <result column="merchant_longitude" property="merchantLongitude" jdbcType="DOUBLE" />
+    <result column="merchant_latitude" property="merchantLatitude" jdbcType="DOUBLE" />
+    <result column="merchant_price" property="merchantPrice" jdbcType="INTEGER" />
+    <result column="merchant_grade" property="merchantGrade" jdbcType="DOUBLE" />
+    <result column="merchant_begin_time" property="merchantBeginTime" jdbcType="TIME" />
+    <result column="merchant_end_time" property="merchantEndTime" jdbcType="TIME" />
+    <result column="merchant_create_time" property="merchantCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dh.order.model.Merchant" extends="BaseResultMap" >
+    <result column="merchant_describe" property="merchantDescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    merchant_id, merchant_name, merchant_nation, merchant_province, merchant_city, merchant_address, 
+    merchant_phone, merchant_url, merchant_longitude, merchant_latitude, merchant_price, 
+    merchant_grade, merchant_begin_time, merchant_end_time, merchant_create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    merchant_describe
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from merchant
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from merchant
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dh.order.model.Merchant" >
+    insert into merchant (merchant_id, merchant_name, merchant_nation, 
+      merchant_province, merchant_city, merchant_address, 
+      merchant_phone, merchant_url, merchant_longitude, 
+      merchant_latitude, merchant_price, merchant_grade, 
+      merchant_begin_time, merchant_end_time, merchant_create_time, 
+      merchant_describe)
+    values (#{merchantId,jdbcType=INTEGER}, #{merchantName,jdbcType=VARCHAR}, #{merchantNation,jdbcType=VARCHAR}, 
+      #{merchantProvince,jdbcType=VARCHAR}, #{merchantCity,jdbcType=VARCHAR}, #{merchantAddress,jdbcType=VARCHAR}, 
+      #{merchantPhone,jdbcType=CHAR}, #{merchantUrl,jdbcType=VARCHAR}, #{merchantLongitude,jdbcType=DOUBLE}, 
+      #{merchantLatitude,jdbcType=DOUBLE}, #{merchantPrice,jdbcType=INTEGER}, #{merchantGrade,jdbcType=DOUBLE}, 
+      #{merchantBeginTime,jdbcType=TIME}, #{merchantEndTime,jdbcType=TIME}, #{merchantCreateTime,jdbcType=TIMESTAMP}, 
+      #{merchantDescribe,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dh.order.model.Merchant" >
+    insert into merchant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="merchantName != null" >
+        merchant_name,
+      </if>
+      <if test="merchantNation != null" >
+        merchant_nation,
+      </if>
+      <if test="merchantProvince != null" >
+        merchant_province,
+      </if>
+      <if test="merchantCity != null" >
+        merchant_city,
+      </if>
+      <if test="merchantAddress != null" >
+        merchant_address,
+      </if>
+      <if test="merchantPhone != null" >
+        merchant_phone,
+      </if>
+      <if test="merchantUrl != null" >
+        merchant_url,
+      </if>
+      <if test="merchantLongitude != null" >
+        merchant_longitude,
+      </if>
+      <if test="merchantLatitude != null" >
+        merchant_latitude,
+      </if>
+      <if test="merchantPrice != null" >
+        merchant_price,
+      </if>
+      <if test="merchantGrade != null" >
+        merchant_grade,
+      </if>
+      <if test="merchantBeginTime != null" >
+        merchant_begin_time,
+      </if>
+      <if test="merchantEndTime != null" >
+        merchant_end_time,
+      </if>
+      <if test="merchantCreateTime != null" >
+        merchant_create_time,
+      </if>
+      <if test="merchantDescribe != null" >
+        merchant_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantName != null" >
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantNation != null" >
+        #{merchantNation,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantProvince != null" >
+        #{merchantProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantCity != null" >
+        #{merchantCity,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantAddress != null" >
+        #{merchantAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null" >
+        #{merchantPhone,jdbcType=CHAR},
+      </if>
+      <if test="merchantUrl != null" >
+        #{merchantUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantLongitude != null" >
+        #{merchantLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="merchantLatitude != null" >
+        #{merchantLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="merchantPrice != null" >
+        #{merchantPrice,jdbcType=INTEGER},
+      </if>
+      <if test="merchantGrade != null" >
+        #{merchantGrade,jdbcType=DOUBLE},
+      </if>
+      <if test="merchantBeginTime != null" >
+        #{merchantBeginTime,jdbcType=TIME},
+      </if>
+      <if test="merchantEndTime != null" >
+        #{merchantEndTime,jdbcType=TIME},
+      </if>
+      <if test="merchantCreateTime != null" >
+        #{merchantCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchantDescribe != null" >
+        #{merchantDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dh.order.model.Merchant" >
+    update merchant
+    <set >
+      <if test="merchantName != null" >
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantNation != null" >
+        merchant_nation = #{merchantNation,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantProvince != null" >
+        merchant_province = #{merchantProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantCity != null" >
+        merchant_city = #{merchantCity,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantAddress != null" >
+        merchant_address = #{merchantAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantPhone != null" >
+        merchant_phone = #{merchantPhone,jdbcType=CHAR},
+      </if>
+      <if test="merchantUrl != null" >
+        merchant_url = #{merchantUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantLongitude != null" >
+        merchant_longitude = #{merchantLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="merchantLatitude != null" >
+        merchant_latitude = #{merchantLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="merchantPrice != null" >
+        merchant_price = #{merchantPrice,jdbcType=INTEGER},
+      </if>
+      <if test="merchantGrade != null" >
+        merchant_grade = #{merchantGrade,jdbcType=DOUBLE},
+      </if>
+      <if test="merchantBeginTime != null" >
+        merchant_begin_time = #{merchantBeginTime,jdbcType=TIME},
+      </if>
+      <if test="merchantEndTime != null" >
+        merchant_end_time = #{merchantEndTime,jdbcType=TIME},
+      </if>
+      <if test="merchantCreateTime != null" >
+        merchant_create_time = #{merchantCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchantDescribe != null" >
+        merchant_describe = #{merchantDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dh.order.model.Merchant" >
+    update merchant
+    set merchant_name = #{merchantName,jdbcType=VARCHAR},
+      merchant_nation = #{merchantNation,jdbcType=VARCHAR},
+      merchant_province = #{merchantProvince,jdbcType=VARCHAR},
+      merchant_city = #{merchantCity,jdbcType=VARCHAR},
+      merchant_address = #{merchantAddress,jdbcType=VARCHAR},
+      merchant_phone = #{merchantPhone,jdbcType=CHAR},
+      merchant_url = #{merchantUrl,jdbcType=VARCHAR},
+      merchant_longitude = #{merchantLongitude,jdbcType=DOUBLE},
+      merchant_latitude = #{merchantLatitude,jdbcType=DOUBLE},
+      merchant_price = #{merchantPrice,jdbcType=INTEGER},
+      merchant_grade = #{merchantGrade,jdbcType=DOUBLE},
+      merchant_begin_time = #{merchantBeginTime,jdbcType=TIME},
+      merchant_end_time = #{merchantEndTime,jdbcType=TIME},
+      merchant_create_time = #{merchantCreateTime,jdbcType=TIMESTAMP},
+      merchant_describe = #{merchantDescribe,jdbcType=LONGVARCHAR}
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dh.order.model.Merchant" >
+    update merchant
+    set merchant_name = #{merchantName,jdbcType=VARCHAR},
+      merchant_nation = #{merchantNation,jdbcType=VARCHAR},
+      merchant_province = #{merchantProvince,jdbcType=VARCHAR},
+      merchant_city = #{merchantCity,jdbcType=VARCHAR},
+      merchant_address = #{merchantAddress,jdbcType=VARCHAR},
+      merchant_phone = #{merchantPhone,jdbcType=CHAR},
+      merchant_url = #{merchantUrl,jdbcType=VARCHAR},
+      merchant_longitude = #{merchantLongitude,jdbcType=DOUBLE},
+      merchant_latitude = #{merchantLatitude,jdbcType=DOUBLE},
+      merchant_price = #{merchantPrice,jdbcType=INTEGER},
+      merchant_grade = #{merchantGrade,jdbcType=DOUBLE},
+      merchant_begin_time = #{merchantBeginTime,jdbcType=TIME},
+      merchant_end_time = #{merchantEndTime,jdbcType=TIME},
+      merchant_create_time = #{merchantCreateTime,jdbcType=TIMESTAMP}
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectAll" resultMap="ResultMapWithBLOBs">
+        select * from merchant
+    </select>
+</mapper>
