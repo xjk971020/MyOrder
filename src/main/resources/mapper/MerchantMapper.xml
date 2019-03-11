@@ -41,7 +41,7 @@
     delete from merchant
     where merchant_id = #{merchantId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.dh.order.model.Merchant" >
+  <insert id="insert" parameterType="com.dh.order.model.Merchant"  useGeneratedKeys="true" keyProperty="merchantId" >
     insert into merchant (merchant_id, merchant_name, merchant_nation, 
       merchant_province, merchant_city, merchant_address, 
       merchant_phone, merchant_url, merchant_longitude, 

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Multi Step Registration Form Template</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/register/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/register/css/form-elements.css">
+    <link rel="stylesheet" href="/register/css/style.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="/register/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/register/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/register/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/register/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/register/ico/apple-touch-icon-57-precomposed.png">
+
+</head>
+
+<body>
+
+<!-- Top menu -->
+<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Bootstrap Multi Step Registration Form Template</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="top-navbar-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#"><strong>联系我们</strong></a>
+                    <span class="li-text">
+								，有问题可致电:020-84096714
+							</span>
+                    <span class="li-social">
+                        <a href="#"><i class="fa fa-phone"></i></a>
+					</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>云端御膳</strong></h1>
+                    <div class="description">
+                        <p>
+                            商家需要按步骤进行注册方能注册成功
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+
+                    <form role="form" action="" enctype="multipart/form-data" method="post" class="registration-form" target="rfFrame" id="registerForm">
+
+                        <fieldset>
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <h3>Step 1 / 2</h3>
+                                    <p>请输入餐厅的基本信息:</p>
+                                </div>
+                                <div class="form-top-right">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <div class="form-group">
+                                    <label class="sr-only" for="name">名称</label>
+                                    <input type="text" name="name" placeholder="name..." class="form-first-name form-control" id="name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="description">描述</label>
+                                    <input type="text" name="description" placeholder="description..." class="form-last-name form-control" id="description">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="province">省份</label>
+                                    <select id="province" name="province" runat="server" onchange="selectprovince(this);" style=" width:95px;"></select>
+                                    <label class="sr-only" for="city">城市</label>
+                                    <select id="city" name="city" runat="server" style=" width:95px;"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="address">地址</label>
+                                    <input type="text" name="address" placeholder="address..." class="form-last-name form-control" id="address">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="phone">电话</label>
+                                    <input type="text" name="phone" placeholder="phone..." class="form-last-name form-control" id="phone">
+                                </div>
+                                <div class="form-group">
+                                    <label>营业开始时间</label>
+                                    <input type="time" name="start-time" placeholder="start-time" class="form-last-name form-control" id="start-time">
+                                </div>
+                                <div class="form-group">
+                                    <label>营业结束时间</label>
+                                    <input type="time" name="end-time" placeholder="end-time" class="form-last-name form-control" id="end-time">
+                                </div>
+                                <div class="form-group">
+                                    <label>商家头像</label>
+                                    <input type="button" value="上传图片" onclick="f.click()" class="btn_mouseout"/><br>
+                                    <p><input type="file" id="f" name="f" onchange="sc(this);" style="display:none"/></p>
+                                </div>
+                                <button type="button" class="btn btn-next">Next</button>
+                                <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
+                            </div>
+
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <h3>Step 2 / 2</h3>
+                                    <p>请输入您的密码:</p>
+                                </div>
+                                <div class="form-top-right">
+                                    <i class="fa fa-key"></i>
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-password">Password</label>
+                                    <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-repeat-password">Repeat password</label>
+                                    <input type="password" name="form-repeat-password" placeholder="Repeat password..."
+                                           class="form-repeat-password form-control" id="form-repeat-password">
+                                </div>
+                                <button type="button" class="btn btn-previous">Previous</button>
+                                <button type="submit" class="btn register" id="register">Register</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@2019  All rights reserved.  <a href="#" target="_blank" title="云端御膳">云端御膳
+<!-- Javascript -->
+<script src="/lib/jquery-3.3.1.min.js"></script>
+<script src="/lib/bootstrap.min.js"></script>
+<script src="/register/js/jquery.backstretch.min.js"></script>
+<script src="/register/js/retina-1.1.0.min.js"></script>
+<script src="/register/js/scripts.js"></script>
+<script src="/lib/jquery-form.js"></script>
+<script src="/js/register.js"></script>
+
+<!--[if lt IE 10]>
+<script src="/register/js/placeholder.js"></script>
+<![endif]-->
+
+</body>
+
+</html>

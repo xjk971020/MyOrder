@@ -19,8 +19,8 @@ public class FoodController {
     @Resource
     private FoodService foodService;
 
-    @GetMapping(value = "/selectByMerchantId")
-    public List<Map<String, Object>> selectByMerchantId(@RequestParam Integer merchantId){
+    @GetMapping(value = "/selectByMerchantId/{merchantId}")
+    public List<Map<String, Object>> selectByMerchantId(@PathVariable Integer merchantId){
         return foodService.selectByMerchantId(merchantId);
     }
 }

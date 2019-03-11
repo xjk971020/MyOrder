@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="/lib/bootstrap.min.css"  th:href="@{/lib/bootstrap.min.css}">
+</head>
+<body>
+<h3 class="text-center">登录</h3>
+<hr/>
+<form class="form-horizontal"  role="form" id="loginForm">
+    <div class="form-group">
+        <label class="col-sm-5 control-label">loginId:</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" name="loginId" placeholder="loginId" id="loginId">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-5 control-label">password:</label>
+        <div class="col-sm-2">
+            <input type="password" class="form-control" name="password" placeholder="password" id="password">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-5 col-sm-5">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="remember" id="remember">请记住我
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-5 col-sm-5">
+            <button type="submit" class="btn btn-default">登录</button>&nbsp;&nbsp;&nbsp;
+            <a href="/register">注册</a>
+        </div>
+    </div>
+</form>
+</body>
+<script src="/lib/jquery-3.3.1.min.js"  th:src="@{/lib/jquery-3.3.1.min.js}"></script>
+<script src="/lib/bootstrap.min.js" th:src="@{/lib/bootstrap.min.js}" ></script>
+<script src="/lib/jquery-form.js" th:src="@{/lib/jquery-form.js}"></script>
+<script language="JavaScript">
+    $(document).on("click",".register",function () {
+        $.ajax({
+            url : "register",
+            type : "GET"
+        });
+    })
+    $("#loginForm").submit(function() {
+        var options = {
+            url: "/login",   //同action
+            type: 'post',
+            beforeSubmit: function() {
+                if ($("#loginId").val() == "" || $("#password").val() == "") {
+                    alert("登录id或者密码不能为空");
+                    return false;
+                }
+            },
+            success: function (result) {
+                if (result.code == 20000) {
+                    location.href = "/index";
+                } else {
+                    alert(result.message);
+                    window.location.reload();
+                }
+            },
+        }
+        $("#loginForm").ajaxSubmit(options);
+    })
+</script>
+</html>

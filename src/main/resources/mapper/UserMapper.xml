@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dh.order.dao.UserMapper">
+    <select id="selectUserByUserId" parameterType="java.lang.Integer" resultType="com.dh.order.model.User">
+        select * from merchant_user where user_id = #{userId}
+    </select>
+    <insert id="insertUser" parameterType="User"  useGeneratedKeys="true" keyProperty="userId" >
+        insert into merchant_user(merchant_id, password, salt, locked)
+        values (#{merchantId}, #{password}, #{salt}, #{locked})
+    </insert>
+</mapper>

@@ -3,6 +3,7 @@ package com.dh.order.model;
 import lombok.Data;
 
 import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
 public class Merchant {
@@ -34,7 +35,8 @@ public class Merchant {
 
     private Date merchantEndTime;
 
-    private Date merchantCreateTime;
+    private Timestamp merchantCreateTime;
 
     private String merchantDescribe;
+
 }

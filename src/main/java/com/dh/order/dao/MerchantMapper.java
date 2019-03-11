@@ -1,9 +1,12 @@
 package com.dh.order.dao;
 
 import com.dh.order.model.Merchant;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component(value = "merchantMapper")
 public interface MerchantMapper {
     int deleteByPrimaryKey(Integer merchantId);
 
