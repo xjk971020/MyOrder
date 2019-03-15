@@ -162,4 +162,10 @@
             parameterType="java.lang.Integer">
         select * from food where merchant_id = #{merchantId}
     </select>
+    <!-- 根据分类id获取分类食品 -->
+    <select id="selectFoodByCategoryId" resultType="Food" parameterType="java.lang.Integer">
+        select f.* from category c,food f
+        where c.category_id = #{categoryId}
+        and c.category_id = f.category_id
+    </select>
 </mapper>

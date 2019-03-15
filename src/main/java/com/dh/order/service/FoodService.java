@@ -1,60 +1,77 @@
 package com.dh.order.service;
 
-import com.dh.order.dao.CategoryMapper;
 import com.dh.order.dao.FoodMapper;
-import com.dh.order.model.Category;
 import com.dh.order.model.Food;
+import com.dh.order.result.MessageResult;
+import com.dh.order.result.code.OperationStatusCode;
+import com.dh.order.result.enums.ResultEnums;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by YE
  * 2019-02-27 21:28
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class FoodService {
 
     @Resource
     private FoodMapper foodMapper;
-    @Resource
-    private CategoryMapper categoryMapper;
 
-    public List<Map<String, Object>> selectByMerchantId(Integer merchantId) {
-        List<Map<String, Object>> goods = new ArrayList<>();
-        List<Category> categories = categoryMapper.selectByMerchantId(merchantId);
-        List<Food> allFood = foodMapper.selectByMerchantId(merchantId);
-        Map<Integer, List<Map<String, Object>>> listMap = new HashMap<>();
-        for (Food food : allFood) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("name", food.getFoodName());
-            map.put("price", food.getFoodPrice());
-            map.put("description", food.getFoodDescription());
-            map.put("sellCount", food.getFoodCount());
-            map.put("Count", 0);
-            map.put("info", food.getFoodDescription());
-            map.put("icon", food.getFoodUrl());
-            map.put("image", food.getFoodUrl());
-            Integer key = food.getCategory().getCategoryId();
-            if(listMap.containsKey(key)){
-                listMap.get(key).add(map);
-            }else{
-                List<Map<String, Object>> value = new ArrayList<>();
-                value.add(map);
-                listMap.put(key, value);
-            }
+    /**
+     * 根据分类id选取食品
+     * @param categoryId
+     * @return
+     */
+    public List<Food> selectFoodByCategoryId(Integer categoryId) {
+        List<Food> foodList = foodMapper.selectFoodByCategoryId(categoryId);
+        if (foodList != null) {
+            return foodList;
         }
-        for(Category category:categories){
-            Map<String, Object> good = new HashMap<>();
-            good.put("name", category.getCategoryName());
-            good.put("type", 1);
-            good.put("foods", listMap.get(category.getCategoryId()));
-            goods.add(good);
+        return null;
+    }
+
+    /**
+     * 添加菜品
+     * @param food
+     * @return
+     */
+    public MessageResult createFood(Food food) {
+        if (foodMapper.insert(food) > 0) {
+            return new MessageResult(OperationStatusCode.SUCCESS, ResultEnums.SUCCESS);
+        } else {
+            return new MessageResult(OperationStatusCode.ERROR,ResultEnums.ERROR);
         }
-        return goods;
+    }
+
+    /**
+     * 修改食品
+     * @param food
+     * @return
+     */
+    public MessageResult update(Food food) {
+        if (foodMapper.updateByPrimaryKeySelective(food) > 0) {
+            return new MessageResult(OperationStatusCode.SUCCESS, ResultEnums.SUCCESS);
+        } else {
+            return new MessageResult(OperationStatusCode.ERROR,ResultEnums.ERROR);
+        }
+    }
+
+    /**
+     * 删除食品
+     * @param foodId
+     * @return
+     */
+    public MessageResult deleteFood(Integer foodId) {
+        if (foodMapper.deleteByPrimaryKey(foodId) > 0) {
+            return new MessageResult(OperationStatusCode.SUCCESS, ResultEnums.SUCCESS);
+        } else {
+            return new MessageResult(OperationStatusCode.ERROR,ResultEnums.ERROR);
+        }
     }
 }

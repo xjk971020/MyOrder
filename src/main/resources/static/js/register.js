@@ -162,33 +162,6 @@ function sc() {
         alert('上传的文件不能超过10MB');
         return false;
     }
-    // else {
-    //     var data = new FormData($('#form1')[0]);
-    //     $.ajax({
-    //         url: "merchant/create",
-    //         type: 'POST',
-    //         data: data,
-    //         dataType: 'JSON',
-    //         cache: false,
-    //         processData: false,
-    //         contentType: false,
-    //         success : function () {
-    //             if (true) {
-    //                     var result = '';
-    //                     var result1 = '';
-    //                     // $("#show").attr('value',+ ret['f'] +);
-    //                     result += '<img src="' + '__ROAD__' + ret['f'] + '" width="100">';
-    //                     result1 += '<input value="' + ret['f'] + '" name="user_headimg" style="display:none;">';
-    //                     $('#resultPic').html(result);
-    //                     $('#show').html(result1);
-    //                 alert('上传成功');
-    //             } else {
-    //                 alert('上传失败');
-    //             }
-    //         }
-    //     });
-    //     return false;
-    // }
 }
 //form表单提交回调函数
 $("#registerForm").submit(function(){

@@ -1,8 +1,10 @@
 package com.dh.order.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Food {
     private Integer foodId;
 
@@ -25,4 +27,6 @@ public class Food {
     private Category category;
 
     private String foodDescription;
+
+    private Float foodGrade;
 }

@@ -117,4 +117,13 @@ public class MerchantService {
         return null;
     }
 
+    /**
+     * 根据id获取merchant
+     * @param merchantId
+     * @return
+     */
+    public Merchant selectMerchantByMerchantId(Integer merchantId) {
+        return merchantMapper.selectByPrimaryKey(merchantId);
+    }
+
 }

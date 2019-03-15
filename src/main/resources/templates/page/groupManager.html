@@ -9,9 +9,13 @@
 
     <!-- Le styles -->
     <link href="http://fonts.googleapis.com/css?family=Oxygen|Marck+Script" rel="stylesheet" type="text/css">
-    <link href="../assets/css/bootstrap.css" rel="stylesheet">
-    <link href="../assets/css/font-awesome.css" rel="stylesheet">
-    <link href="../assets/css/admin.css" rel="stylesheet">
+    <link href="../../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.css" rel="stylesheet">
+    <link href="../../assets/css/admin.css" rel="stylesheet">
+
+    <!-- datatables -->
+    <link rel="stylesheet" href="../../lib/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -33,20 +37,32 @@
 
                 <ul class="side-nav">
 
-                    <li class="active">
-                        <a href="index.html"><i class="icon-home"></i> 仪表盘</a>
+                    <li>
+                        <a th:href="@{'/index/'+${merchantId}}"><i class="icon-home"></i> 仪表盘</a>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"><i class="icon-info-sign"></i> 菜品分类 <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"><i
+                                class="icon-info-sign"></i> 分类 <b class="caret"></b></a>
                         <ul id="store-dropdown" class="collapse">
-
+                            <li><a th:each="cateogry,cateogryStat : ${categoryList}" th:href="@{'../../../merchant/' + ${merchantId}+'/food/'+${cateogry.categoryId}}"
+                                   th:text="${cateogry.categoryName}"></a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="/page/groupmanager"><i class="icon-group"></i> 菜品分类管理</a>
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#order-dropdown" href="#"><i
+                                class="icon-info-sign"></i> 订单查询 <b class="caret"></b></a>
+                        <ul id="order-dropdown" class="collapse">
+                            <li><a href="">日订单查询</a></li>
+                            <li><a href="">月订单查询</a></li>
+                            <li><a href="">年订单查询</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a th:href="@{'../../page/groupmanager/'+${merchantId}}"><i class="icon-group"></i> 分类管理</a>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"><i class="icon-table"></i> 报表统计 <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"><i
+                                class="icon-table"></i> 报表统计 <b class="caret"></b></a>
                         <ul id="reports-dropdown" class="collapse">
 
                         </ul>
@@ -63,7 +79,8 @@
 
                 <ul class="nav nav-pills pull-right">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i> John Smith <b class="caret"></b>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="${merchantName}"><i
+                                class="icon-user"></i> John Smith <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="profile.html">我的信息</a></li>
@@ -75,205 +92,99 @@
 
                 <ul class="breadcrumb">
                     <li>
-                        <a href="#">Admin</a> <span class="divider">/</span>
+                        <a href="#" th:text="${merchantName}">Admin</a> <span class="divider">/</span>
                     </li>
-                    <li class="active">仪表盘</li>
+                    <li class="active">菜品分类管理</li>
                 </ul>
 
             </div>
 
-            <div class="main-area dashboard">
-
-                <div class="row">
-
-                    <div class="span10">
-
-                        <div class="slate clearfix">
-
-                            <a class="stat-column" href="#">
-
-                                <span class="number">16</span>
-                                <span>Open Orders</span>
-
-                            </a>
-
-                            <a class="stat-column" href="#">
-
-                                <span class="number">452</span>
-                                <span>Members</span>
-
-                            </a>
-
-                            <a class="stat-column" href="#">
-
-                                <span class="number">$2,512</span>
-                                <span>Revenue</span>
-
-                            </a>
-
-                            <a class="stat-column" href="#">
-
-                                <span class="number">348</span>
-                                <span>Subscribers</span>
-
-                            </a>
-
-                        </div>
-
+            <div class="row">
+                <div class="span10">
+                    <div class="page-header">
+                        <button type="button" class="btn btn-primary" id="createCategory">添加菜品分类</button>
+                        <i class="icon-group pull-right"></i>
                     </div>
+                    <div class="span9">
 
+                        <table class="table table-striped table-hover" id="group-manager-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>菜品分类</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
-
-                <div class="row">
-
-                    <div class="span5">
-
-                        <div class="slate">
-
-                            <div class="page-header">
-                                <h2><i class="icon-shopping-cart pull-right"></i>Latest Orders</h2>
-                            </div>
-
-                            <table class="orders-table table">
-                                <tbody>
-                                <tr>
-                                    <td><a href="">#12345 - Joe Bloggs</a> <span class="label label-info">Paid</span></td>
-                                    <td>$112.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">#12345 - Joe Bloggs</a> <span class="label label-success">Dispatched</span></td>
-                                    <td>$112.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">#12345 - Joe Bloggs</a> <span class="label label-important">Refunded</span></td>
-                                    <td>$112.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">#12345 - Joe Bloggs</a> <span class="label">Awaiting Payment</span></td>
-                                    <td>$112.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">#12345 - Joe Bloggs</a> <span class="label label-inverse">Failed</span></td>
-                                    <td>$112.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">#12345 - Joe Bloggs</a> <span class="label label-warning">Cancelled</span></td>
-                                    <td>$112.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">#12345 - Joe Bloggs</a> <span class="label label-info">Paid</span></td>
-                                    <td>$112.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><a href="">View more orders</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="row">
-
-                    <div class="span5">
-
-                        <div class="slate">
-
-                            <div class="page-header">
-                                <h2><a class="pull-right iconlink" href=""><i class="icon-rss"></i></a>News</h2>
-                            </div>
-
-                            <table class="orders-table table">
-                                <tbody>
-                                <tr>
-                                    <td><a href="">News article title</a></td>
-                                    <td class="date">Today at 12:01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">Another news article title</a></td>
-                                    <td class="date">Yesterday at 16:34</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">A third news article title</a></td>
-                                    <td class="date">22nd June 2014</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">This news article title spans onto two lines so we can see what it will look like</a></td>
-                                    <td class="date">21st June 2014</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">A final news article title</a></td>
-                                    <td class="date">20th June 2014</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><a href="">Read more news</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-
-                    </div>
-
-                    <div class="span5">
-
-                        <div class="slate">
-
-                            <div class="page-header">
-                                <h2><i class="icon-envelope-alt pull-right"></i>Enquiries</h2>
-                            </div>
-
-                            <table class="orders-table table">
-                                <tbody>
-                                <tr>
-                                    <td><a href="">Customer enquiry</a> <span class="label label-info">New</span></td>
-                                    <td class="date">Today at 12:01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">Another customer enquiry</a> <span class="label label-info">New</span></td>
-                                    <td class="date">Yesterday at 16:34</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">A third customer enquiry</a></td>
-                                    <td class="date">22nd June 2014</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">This customer enquiry spans onto two lines so we can see what it will look like</a></td>
-                                    <td class="date">21st June 2014</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="">A final customer enquiry</a></td>
-                                    <td class="date">20th June 2014</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><a href="">View more enquiries</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="row">
-
-                    <div class="span10 footer">
-
-                        <p>&copy; 云端御膳 2019</p>
-
-                    </div>
-
-                </div>
-
             </div>
+            <!-- 添加菜品分类 模态框 -->
+            <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">添加</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">分类名称:&nbsp;&nbsp;</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control categoryName" name="categoryName"
+                                               placeholder="请输入想要添加的分类名" value="" id="create-categoryName">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary create-sure">添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑菜品分类 模态框 -->
+            <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">编辑</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">分类名称:&nbsp;&nbsp;</label>
+                                    <div class="col-sm-5">
+                                        <input type="hidden" id="categoryId">
+                                        <input type="text" class="form-control categoryName" name="categoryName"
+                                               value="" id="edit-categoryName">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary edit-sure">修改</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <br/><br/><br/><br/><br/>
+                <div class="span10 footer">
 
+                    <p>&copy; 云端御膳 2019</p>
+
+                </div>
+            </div>
         </div> <!-- end span10 -->
-
+        <!-- 获取商家id -->
+        <p style="display: none" th:text="${merchantId}" id="merchantId"></p>
     </div> <!-- end row -->
 
 </div> <!-- end container -->
@@ -281,14 +192,13 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/bootstrap.js"></script>
-<script src="../assets/js/excanvas.min.js"></script>
-<script src="../assets/js/jquery.flot.min.js"></script>
-<script src="../assets/js/jquery.flot.resize.js"></script>
-<script type="text/javascript">
-
-</script>
-
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/bootstrap.js"></script>
+<script src="../../assets/js/excanvas.min.js"></script>
+<script src="../../assets/js/jquery.flot.min.js"></script>
+<script src="../../assets/js/jquery.flot.resize.js"></script>
+<script src="../../lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../js/groupManager.js"></script>
 </body>
 </html>

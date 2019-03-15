@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>分类</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="adminize">
+    <meta name="author" content="xjk">
+
+    <!-- Le styles -->
+    <link href="http://fonts.googleapis.com/css?family=Oxygen|Marck+Script" rel="stylesheet" type="text/css">
+    <link href="../../../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../assets/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../assets/css/admin.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+
+        <div class="span2">
+
+            <div class="main-left-col">
+
+                <h1><i class="icon-eye-open icon-large"></i> YuShan</h1>
+
+                <ul class="side-nav">
+
+                    <li>
+                        <a th:href="@{'/index/'+${merchant.merchantId}}"><i class="icon-home"></i> 仪表盘</a>
+                    </li>
+                    <li class="dropdown active">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#store-dropdown" href="#"><i
+                                class="icon-info-sign"></i> 分类 <b class="caret"></b></a>
+                        <ul id="store-dropdown" class="collapse">
+                            <li><a th:each="cateogry,cateogryStat : ${categoryList}"
+                                   th:href="@{'/merchant/' + ${merchant.merchantId}+'/food/'+${cateogry.categoryId}}"
+                                   th:text="${cateogry.categoryName}"></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#order-dropdown" href="#"><i
+                                class="icon-info-sign"></i> 订单查询 <b class="caret"></b></a>
+                        <ul id="order-dropdown" class="collapse">
+                            <li><a href="">日订单查询</a></li>
+                            <li><a href="">月订单查询</a></li>
+                            <li><a href="">年订单查询</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a th:href="@{'../../../page/groupmanager/'+${merchant.merchantId}}"><i class="icon-group"></i>
+                            分类管理</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#reports-dropdown" href="#"><i
+                                class="icon-table"></i> 报表统计 <b class="caret"></b></a>
+                        <ul id="reports-dropdown" class="collapse">
+
+                        </ul>
+                    </li>
+                </ul>
+
+            </div> <!-- end main-left-col -->
+
+        </div> <!-- end span2 -->
+
+        <div class="span10">
+            <div class="secondary-masthead">
+
+                <ul class="nav nav-pills pull-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                           th:text="${merchant.getMerchantName()}"><i class="icon-user"></i> admin <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="profile.html">我的信息</a></li>
+                            <li class="active"><a href="form.html">Account Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#" th:text="${merchant.merchantName}">Admin</a> <span class="divider">/</span>
+                    </li>
+                    <li>
+                        <a href="#">分类</a><span class="divider">/</span>
+                    </li>
+                    <li class="active">
+                        <a href="#" th:text="${category.categoryName}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-area dashboard">
+            <div class="row">
+                <div class="span10">
+                    <div class="slate">
+                        <div class="page-header">
+                            <button id="createFood" type="button" class="btn btn-primary btn-group-lg">添加菜品</button>
+                            <i class="glyphicon-cutlery pull-right"></i>
+                        </div>
+                        <div th:each="food:${foodList}">
+                            <div class="span2" style="margin-bottom: 30px; width:193px !important; ">
+                                <div class="thumbnail">
+                                    <div style="width:100%;height:170px;background: #fffdce">
+                                        <img th:src="@{'../../../foodPic/' + ${food.foodUrl}}"
+                                             style="height: 100%;width: 100%">
+                                    </div>
+                                    <div class="caption" style="height: 120px;">
+                                        <div>
+                                        <h3 th:text="${food.foodName}" id="foodName" style="display: inline-block;">食品</h3><span style="display:inline-block;float: right;margin-top: 7px;" th:text="'￥:' + ${food.foodPrice}" id="foodPrice" >食品</span>
+                                        </div>
+                                        <br/>
+                                        <input type="hidden" th:value="${category.categoryId}" id="edit-btn-categoryId">
+                                        <input type="hidden" th:value="${food.merchantId}" id="edit-btn-merchantId">
+                                        <input type="hidden" th:value="${food.foodDiscountPrice}" id="edit-btn-foodDiscountPrice">
+                                        <input type="hidden" th:value="${food.isSpecialty}" id="edit-btn-foodSpecialty">
+                                        <input type="hidden" th:value="${food.foodPrice}" id="edit-btn-foodPrice">
+                                        <input type="hidden" th:value="${food.foodStatue}" id="edit-btn-foodStatue">
+                                        <input type="hidden" th:value="${food.foodCount}" id="edit-btn-foodCount">
+                                        <input type="hidden" th:value="${food.foodDescription}" id="edit-btn-foodDescription">
+                                        <input type="hidden" th:value="${food.foodGrade}" id="edit-btn-foodGrade">
+                                        <input type="hidden" th:value="${food.foodUrl}" id="edit-btn-foodUrl">
+                                        <p style="line-height: 1.8;height: 50px;overflow: hidden;" th:text="${food.foodDescription}">好吃</p>
+                                        <p style="display: none" th:text="'描述:' + ${food.foodId}" id="foodId" class="foodId">
+                                            <p>
+                                                <a href="#" class="btn btn-default" role="button" id="see-food-btn">预览</a>
+                                                <a href="#" class="btn btn-success" role="button" id="edit-food-btn">修改</a>
+                                                <a href="#" class="btn btn-danger" role="button" id="delete-food-btn">删除</a>
+                                            </p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- 添加菜品 模态框 -->
+<div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <form class="form-horizontal" id="createFoodForm" action="../../../food/create" method="post"
+                  enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">名称:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control categoryName" name="foodName"
+                                   placeholder="请输入菜品名称" value="" id="create-foodName">
+                            <input type="hidden" name="merchantId" id="text-merchantId">
+                            <input type="hidden" name="categoryId" id="text-categoryId">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">描述:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <textarea cols="10" rows="3" class="form-control categoryName" name="foodDescription"
+                                      placeholder="请输入菜品描述" value="" id="create-foodDescription"></textarea>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">价格:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control categoryName" name="foodPrice"
+                                   placeholder="请输入价格" value="" id="create-foodPrice">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">折扣价:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control categoryName" name="foodDiscountPrice"
+                                   placeholder="请输入折扣价格" value="" id="create-foodDiscountPrice">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否特色菜:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input name="specialty" type="radio" checked="checked" value="true"/>是&nbsp;&nbsp;
+                            <input name="specialty" type="radio" value="false"/>否
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">状态:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <select name="foodStatue">
+                                <option value="上线">上线</option>
+                                <option value="下架">下架</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">图片:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input type="file" class="form-control categoryName" name="foodPic"
+                                   placeholder="图片" id="create-foodPic" onchange="sc()">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <input type="submit" id="button" value="添加" class="btn btn-primary create-sure">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 编辑菜品 模态框 -->
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">编辑</h4>
+            </div>
+            <form class="form-horizontal" id="editFoodForm" action="../../../food/update" method="post"
+                  enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">名称:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control categoryName" name="foodName"
+                                   placeholder="请输入菜品名称" value="" id="edit-modal-foodName">
+                            <input type="hidden" name="merchantId" id="edit-modal-merchantId" value="">
+                            <input type="hidden" name="categoryId" id="edit-modal-categoryId" value="">
+                            <input type="hidden" name="foodId" id="edit-modal-foodId" value="">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">描述:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <textarea cols="10" rows="3" class="form-control categoryName" name="foodDescription"
+                                      placeholder="请输入菜品描述" value="" id="edit-modal-foodDescription"></textarea>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">价格:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control categoryName" name="foodPrice"
+                                   placeholder="请输入价格" value="" id="edit-modal-foodPrice">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">折扣价:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control categoryName" name="foodDiscountPrice"
+                                   placeholder="请输入折扣价格" value="" id="edit-modal-foodDiscountPrice">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否特色菜:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input name="specialty" class="idSpecialty" type="radio" />是&nbsp;&nbsp;
+                            <input name="specialty" class="notSpecialty" type="radio" />否
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">状态:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <select name="foodStatue" id="edit-modal-foodStatue">
+                                <option value="0">上线</option>
+                                <option value="1">下架</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">图片:&nbsp;&nbsp;</label>
+                        <div class="col-sm-5">
+                            <input type="file" class="form-control categoryName" name="foodPic"
+                                   placeholder="图片" id="edit-modal-foodPic" onchange="editPic()">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <input type="submit" id="editButton" value="修改" class="btn btn-primary edit-sure">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 预览菜品 模态框 -->
+
+<!-- 获取商家id -->
+<p style="display: none" th:text="${merchant.merchantId}" id="merchantId"></p>
+<!-- 分类id -->
+<p style="display: none" th:text="${category.categoryId}" id="categoryId"></p>
+</body>
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../../assets/js/jquery.min.js"></script>
+<script src="../../../assets/js/bootstrap.js"></script>
+<script src="../../../assets/js/excanvas.min.js"></script>
+<script src="../../../assets/js/jquery.flot.min.js"></script>
+<script src="../../../assets/js/jquery.flot.resize.js"></script>
+<script src="../../../lib/jquery-form.js"></script>
+<script src="../../../js/food.js"></script>
+</html>

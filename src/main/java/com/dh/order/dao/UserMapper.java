@@ -23,4 +23,11 @@ public interface UserMapper {
      * @return
      */
     User selectUserByUserId(@Param(value = "userId")Integer userId);
+
+    /**
+     * 根据userId查找merchantId
+     * @param userId
+     * @return
+     */
+    Integer selecyMerchantIdByUserId(@Param(value = "userId")Integer userId);
 }

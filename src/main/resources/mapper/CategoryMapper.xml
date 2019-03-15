@@ -76,4 +76,7 @@
             merchant_id   = #{merchantId,jdbcType=INTEGER}
         where category_id = #{categoryId,jdbcType=INTEGER}
     </update>
+    <select id="selectAllcategory" resultType="Category">
+        select * from category
+    </select>
 </mapper>

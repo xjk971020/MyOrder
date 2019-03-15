@@ -15,8 +15,12 @@ import static org.junit.Assert.*;
 public class CategoryMapperTest {
     @Resource
     private CategoryMapper categoryMapper;
-    @Test
+//    @Test
     public void selectByMerchantId() {
         System.out.println(JSON.toJSONString(categoryMapper.selectByMerchantId(1)));
+    }
+    @Test
+    public void selectCategory() {
+        System.out.println(JSON.toJSONString(categoryMapper.selectAllcategory()));
     }
 }

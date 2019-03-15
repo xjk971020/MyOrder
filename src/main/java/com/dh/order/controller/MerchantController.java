@@ -26,7 +26,7 @@ import java.util.Map;
 public class MerchantController {
 
     @Autowired
-    MerchantService merchantService;
+    private MerchantService merchantService;
 
     @PostMapping("/create")
     public MessageResult createMerchant(@RequestParam(value = "f")MultipartFile file, HttpServletRequest request) {

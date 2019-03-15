@@ -9,4 +9,7 @@
         insert into merchant_user(merchant_id, password, salt, locked)
         values (#{merchantId}, #{password}, #{salt}, #{locked})
     </insert>
+    <select id="selecyMerchantIdByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select merchant_id from merchant_user where user_id = #{userId}
+    </select>
 </mapper>

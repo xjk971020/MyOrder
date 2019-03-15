@@ -88,6 +88,13 @@
             <version>1.4.0</version>
         </dependency>
 
+        <!-- pageHelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.1.6</version>
+        </dependency>
+
     </dependencies>
 
     <build>

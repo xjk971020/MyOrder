@@ -1,58 +1,77 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>登录</title>
-    <link rel="stylesheet" type="text/css" href="/lib/bootstrap.min.css"  th:href="@{/lib/bootstrap.min.css}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>云端御膳</title>
+    <link rel="stylesheet" href="/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/register/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/register/css/form-elements.css">
+    <link href="/login/style_log.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/login/style.css">
+    <link rel="stylesheet" type="text/css" href="/login/userpanel.css">
+    <link rel="stylesheet" type="text/css" href="/login/jquery.ui.all.css">
+
 </head>
-<body>
-<h3 class="text-center">登录</h3>
-<hr/>
-<form class="form-horizontal"  role="form" id="loginForm">
-    <div class="form-group">
-        <label class="col-sm-5 control-label">loginId:</label>
-        <div class="col-sm-2">
-            <input type="text" class="form-control" name="loginId" placeholder="loginId" id="loginId">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label">password:</label>
-        <div class="col-sm-2">
-            <input type="password" class="form-control" name="password" placeholder="password" id="password">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-5 col-sm-5">
-            <div class="checkbox">
+
+<body class="login" mycollectionplug="bind">
+<div class="login_m">
+    <div class="login_logo"><img src="./login/logo.png" width="196" height="46"></div>
+    <div class="login_boder">
+
+        <div class="login_padding" id="login_model">
+            <form role="form" id="loginForm" action="/login" method="post">
+                <h2>登录id</h2>
+
                 <label>
-                    <input type="checkbox" name="remember" id="remember">请记住我
+                    <input type="text" id="loginId" class="txt_input txt_input2" name="loginId" placeholder="Your Id">
                 </label>
-            </div>
+                <h2>密码</h2>
+                <label>
+                    <input type="password" name="password" id="password" class="txt_input" placeholder="password">
+                </label>
+                <div class="rem_sub_l" >
+                    <input type="checkbox" name="remember" id="remember">
+                    <label for="remember">记住我</label>
+                </div>
+                <p class="forgot"><a id="iforget" href="/register" style="font-size: 15px;">商家注册</a></p>
+                <!--<a id="iforget" href="/register" style="font-size: 20px;">注册</a>-->
+                <div class="rem_sub" align="center">
+
+                    <label>
+                        <!--<button type="submit" class="sub_button" name="button" id="button" value="登录" style="opacity: 0.7;">登录</button>-->
+                        <input type="submit" class="sub_button" id="button" value="登录"
+                               style="opacity: 0.7; margin-left: 80%">
+                    </label>
+
+                </div>
+            </form>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-5 col-sm-5">
-            <button type="submit" class="btn btn-default">登录</button>&nbsp;&nbsp;&nbsp;
-            <a href="/register">注册</a>
-        </div>
-    </div>
-</form>
+    <!--login_padding  Sign up end-->
+</div><!--login_boder end-->
+</div><!--login_m end-->
+<br/><br/><br/><br/>
+<div class="footer">
+    <p align="center">@2019 All rights reserved.  <a href="#" target="_blank" title="云端御膳">云端御膳</a>
+</div>
+
 </body>
+<!-- Javascript -->
 <script src="/lib/jquery-3.3.1.min.js"  th:src="@{/lib/jquery-3.3.1.min.js}"></script>
-<script src="/lib/bootstrap.min.js" th:src="@{/lib/bootstrap.min.js}" ></script>
-<script src="/lib/jquery-form.js" th:src="@{/lib/jquery-form.js}"></script>
+<script src="/lib/bootstrap.min.js"></script>
+<script src="/lib/jquery-form.js"></script>
 <script language="JavaScript">
-    $(document).on("click",".register",function () {
+    $(document).on("click", ".register", function () {
         $.ajax({
-            url : "register",
-            type : "GET"
+            url: "register",
+            type: "GET"
         });
     })
-    $("#loginForm").submit(function() {
+    $("#loginForm").submit(function () {
         var options = {
-            url: "/login",   //同action
-            type: 'post',
-            beforeSubmit: function() {
+            beforeSubmit: function () {
                 if ($("#loginId").val() == "" || $("#password").val() == "") {
                     alert("登录id或者密码不能为空");
                     return false;
@@ -60,7 +79,7 @@
             },
             success: function (result) {
                 if (result.code == 20000) {
-                    location.href = "/index";
+                    location.href = "/index/" + result.message;
                 } else {
                     alert(result.message);
                     window.location.reload();
@@ -68,6 +87,7 @@
             },
         }
         $("#loginForm").ajaxSubmit(options);
+        return false;
     })
 </script>
 </html>

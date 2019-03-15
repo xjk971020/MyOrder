@@ -33,4 +33,13 @@ public class UserService {
     public User selectUserByUserId(Integer userId) {
         return userMapper.selectUserByUserId(userId);
     }
+
+    /**
+     * 根据userId查找merchantId
+     * @param userId
+     * @return
+     */
+    public Integer selecyMerchantIdByUserId(Integer loginId) {
+        return userMapper.selecyMerchantIdByUserId(loginId);
+    }
 }

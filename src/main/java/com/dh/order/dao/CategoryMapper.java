@@ -1,10 +1,14 @@
 package com.dh.order.dao;
 
 import com.dh.order.model.Category;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component(value = "categoryMapper")
 public interface CategoryMapper {
+    List<Category> selectAllcategory();
+
     int deleteByPrimaryKey(Integer categoryId);
 
     int insert(Category record);

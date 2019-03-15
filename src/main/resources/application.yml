@@ -11,9 +11,9 @@ spring:
     minIdle: 0
     maxWait: 6000
   http:
-      multipart:
-       max-file-size: 10MB
-       max-request-size: 10MB
+    multipart:
+     max-file-size: 10MB
+     max-request-size: 10MB
   #thymeleaf 配置
   thymeleaf:
     prefix: classpath:/templates/
